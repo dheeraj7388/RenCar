@@ -1,0 +1,137 @@
+<form id="carForm" style="max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+    <h2 style="text-align: center;">Register Your Car</h2>
+    <input type="text" id="ownerName" placeholder="Owner Name" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="text" id="carModel" placeholder="Car Model" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="text" id="carNumber" placeholder="Car Number" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="text" id="registrationNumber" placeholder="Registration Number" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="text" id="pollutionNumber" placeholder="Pollution Number" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="text" id="fitness" placeholder="Fitness" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="number" id="rentPerDay" placeholder="Rent per Day" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <input type="text" id="location" placeholder="Location" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <div style="margin: 10px 0;">
+        <input type="text" id="imageUrl" placeholder="Car Image URL (must start with http:// or https://)" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <small id="urlHelp" style="display: none; color: red;">Please enter a valid URL starting with http:// or https://</small>
+    </div>
+    <select id="category" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+        <option value="">Select Category</option>
+        <option value="Sedan">Sedan</option>
+        <option value="SUV">SUV</option>
+        <option value="Luxury">Luxury</option>
+        <option value="Electric">Electric</option>
+    </select>
+    <input type="number" id="seats" placeholder="Number of Seats" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+    <select id="transmission" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+        <option value="">Select Transmission</option>
+        <option value="Automatic">Automatic</option>
+        <option value="Manual">Manual</option>
+    </select>
+    <select id="fuelType" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
+        <option value="">Select Fuel Type</option>
+        <option value="Petrol">Petrol</option>
+        <option value="Diesel">Diesel</option>
+        <option value="Electric">Electric</option>
+        <option value="Hybrid">Hybrid</option>
+    </select>
+    <button type="submit" style="width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Register Car</button>
+</form>
+
+<script>
+document.getElementById("carForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const carData = {
+        ownerName: document.getElementById("ownerName").value,
+        carModel: document.getElementById("carModel").value,
+        carNumber: document.getElementById("carNumber").value,
+        registrationNumber: document.getElementById("registrationNumber").value,
+        pollutionNumber: document.getElementById("pollutionNumber").value,
+        fitness: document.getElementById("fitness").value,
+        rentPerDay: document.getElementById("rentPerDay").value,
+        location: document.getElementById("location").value,
+        imageUrl: document.getElementById("imageUrl").value,
+        category: document.getElementById("category").value,
+        seats: document.getElementById("seats").value,
+        transmission: document.getElementById("transmission").value,
+        fuelType: document.getElementById("fuelType").value,
+    };
+
+    // Validate image URL
+    const imageUrl = document.getElementById("imageUrl").value;
+    const urlHelp = document.getElementById("urlHelp");
+    if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+        urlHelp.style.display = 'block';
+        document.getElementById("imageUrl").style.borderColor = 'red';
+        return;
+    } else {
+        urlHelp.style.display = 'none';
+        document.getElementById("imageUrl").style.borderColor = '#ccc';
+    }
+
+    try {
+        const response = await fetch("http://localhost:5002/registerCar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(carData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("✅ Car Registered Successfully!");
+            document.getElementById("carForm").reset(); // Clear form fields
+            loadCars(); // Refresh the car list
+        } else {
+            alert("❌ Registration Failed: " + data.message);
+        }
+    } catch (error) {
+        alert("❌ Error: Unable to register car. Check server logs.");
+        console.error(error);
+    }
+});
+
+// Function to fetch and display registered cars
+async function loadCars() {
+    try {
+        const response = await fetch("http://localhost:5002/cars");
+        const cars = await response.json();
+
+        const carList = document.getElementById("carList");
+        carList.innerHTML = "";
+        carList.style.display = "grid";
+        carList.style.gridTemplateColumns = "repeat(auto-fill, minmax(400px, 1fr))";
+        carList.style.gap = "20px";
+        carList.style.padding = "20px";
+
+        if (cars.length === 0) {
+            carList.innerHTML = "<p>No cars available for rent.</p>";
+            return;
+        }
+
+        cars.forEach(car => {
+            carList.innerHTML += `
+                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 15px 0; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: grid; grid-template-columns: 1fr 2fr; gap: 15px; align-items: center;">
+                    <div>
+                        <img src="${car.imageUrl}" style="width: 100%; max-width: 200px; border-radius: 4px;" alt="Car Image">
+                    </div>
+                    <div>
+                        <h3 style="margin: 0 0 10px 0; color: #333;">${car.carModel} - ${car.ownerName}</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <p style="margin: 5px 0;"><strong>Number:</strong> ${car.carNumber}</p>
+                            <p style="margin: 5px 0;"><strong>Registration:</strong> ${car.registrationNumber}</p>
+                            <p style="margin: 5px 0;"><strong>Category:</strong> ${car.category}</p>
+                            <p style="margin: 5px 0;"><strong>Fitness:</strong> ${car.fitness}</p>
+                            <p style="margin: 5px 0;"><strong>Rent:</strong> ₹${car.rentPerDay}/day</p>
+                            <p style="margin: 5px 0;"><strong>Location:</strong> ${car.location}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Error fetching cars:", error);
+    }
+}
+
+// Load cars on page Load
+loadCars();
+</script>
