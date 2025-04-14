@@ -1,75 +1,75 @@
+/* Existing CSS content remains unchanged until the end */
 
-/*** Spinner Start ***/
-/*** Spinner ***/
-#spinner {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
-    z-index: 99999;
+/* New Car Grid Layout */
+.car-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
-#spinner.show {
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
-    visibility: visible;
-    opacity: 1;
-}
-/*** Spinner End ***/
-
-.back-to-top {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    transition: 0.5s;
-    z-index: 99;
+.car-item {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/*** Button Start ***/
-.btn {
-    font-weight: 600;
-    transition: .5s;
+.car-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.btn-square {
-    width: 32px;
-    height: 32px;
+.car-img {
+    height: 200px;
+    overflow: hidden;
 }
 
-.btn-sm-square {
-    width: 34px;
-    height: 34px;
+.car-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.btn-md-square {
-    width: 44px;
-    height: 44px;
+.car-item:hover .car-img img {
+    transform: scale(1.05);
 }
 
-.btn-lg-square {
-    width: 56px;
-    height: 56px;
+.car-content {
+    padding: 1.5rem;
 }
 
-.btn-xl-square {
-    width: 66px;
-    height: 66px;
+.car-content h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 1.25rem;
 }
 
-.btn-square,
-.btn-sm-square,
-.btn-md-square,
-.btn-lg-square,
-.btn-xl-square {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: normal;
+.car-specs {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
-.btn.btn-primary {
-    color: var(--bs-white);
+.car-price {
+    font-weight: bold;
+    color: var(--bs-primary);
+    margin-bottom: 1rem;
+    display: block;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .car-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+}
 .btn.btn-primary:hover {
     background: var(--bs-secondary);
     border: 1px solid var(--bs-secondary);

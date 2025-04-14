@@ -32,11 +32,11 @@
     <body>
 
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> -->
         <!-- Spinner End -->
 
         <!-- Topbar Start -->
@@ -47,7 +47,7 @@
                         <div class="d-flex flex-wrap">
                             <a href="#" class="text-muted me-4"><i class="fas fa-map-marker-alt text-primary me-2"></i>Ayodhya</a>
                             <a href="tel:+01234567890" class="text-muted me-4"><i class="fas fa-phone-alt text-primary me-2"></i>+917388511176</a>
-                            <a href="mailto:example@gmail.com" class="text-muted me-0"><i class="fas fa-envelope text-primary me-2"></i>workcental@gmail.com</a>
+                            <a href="mailto:example@gmail.com" class="text-muted me-0"><i class="fas fa-envelope text-primary me-2"></i>workRenCar@gmail.com</a>
                         </div>
                     </div>
                     <!-- <div class="col-lg-6 text-center text-lg-end">
@@ -76,7 +76,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav mx-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="../car-rent/index.html" class="nav-item nav-link active">Home</a>
                             <a href="about.html" class="nav-item nav-link">About</a>
                             <a href="service.html" class="nav-item nav-link">Service</a>
                             <!-- <a href="blog.html" class="nav-item nav-link">Blog</a> -->
@@ -85,8 +85,8 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0">
                                     <a href="feature.html" class="dropdown-item">Our Feature</a>
-                                    <a href="cars.html" class="dropdown-item">Our Cars</a>
-                                    <a href="team.html" class="dropdown-item">Our Team</a>
+                                    <!-- <a href="cars.html">Our Cars</a> -->
+                                    <a href="team.html"class="dropdown-item">Our Team</a>
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                     <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->
                                 </div>
@@ -181,8 +181,9 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
-                                                        <a href="cars.html" class="btn btn-light w-100 py-2">Book Now</a>
+                                                    <div class="col-12"
+                                                    onclick="getData()">
+                                                        <a href="/cars.html" class="btn btn-light w-100 py-2">Book Now</a>
                                                     </div>
                                                 </div>
                                             </form>
@@ -203,7 +204,7 @@
                         <div class="carousel-caption">
                             <div class="container py-4">
                                 <div class="row g-5">
-                                    <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
+                                    <!-- <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
                                         <div class="bg-secondary rounded p-5">
                                             <h4 class="text-white mb-4">CONTINUE CAR RESERVATION</h4>
                                             <form>
@@ -270,17 +271,17 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-12" onclick="getData()">
                                                         <a href='./cars.html' class="btn btn-light w-100 py-2">Book Now</a>
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
                                         <div class="text-start">
-                                            <h1 class="display-5 text-white">Get 15% off your rental! Choose Your Model </h1>
-                                            <p>Treat yourself in INDIA</p>
+                                            <h1 class="display-5 text-white">Reliable Rides, Unbeatable Prices – Your Journey Starts Here. </h1>
+                                            <!-- <p>Treat yourself in INDIA</p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -296,7 +297,7 @@
         <div class="container-fluid feature py-5">
             <div class="container py-5">
                 <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize mb-3">Cental <span class="text-primary">Features</span></h1>
+                    <h1 class="display-5 text-capitalize mb-3">RenCar <span class="text-primary">Features</span></h1>
                     <p class="mb-0">Discover the key features that make our car rental service convenient, affordable, and hassle-free.
                     </p>
                 </div>
@@ -368,8 +369,8 @@
                     <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
                         <div class="about-item">
                             <div class="pb-5">
-                                <h1 class="display-5 text-capitalize">Cental <span class="text-primary">About</span></h1>
-                                <p class="mb-0">Cental is a trusted car rental service committed to providing reliable and affordable transportation services. 
+                                <h1 class="display-5 text-capitalize">RenCar <span class="text-primary">About</span></h1>
+                                <p class="mb-0">RenCar is a trusted car rental service committed to providing reliable and affordable transportation services. 
                                 </p>
                             </div>
                             <div class="row g-4">
@@ -971,7 +972,7 @@
                         <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                         </div>
                         <div class="testimonial-inner p-4">
-                            <img src="img/testimonial-1.jpg" class="img-fluid" alt="">
+                            <!-- <img src="img/testimonial-1.jpg" class="img-fluid" alt=""> -->
                             <div class="ms-4">
                                 <h4>Madhvi</h4>
                                 <p>Teacher</p>
@@ -992,7 +993,7 @@
                         <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                         </div>
                         <div class="testimonial-inner p-4">
-                            <img src="img/testimonial-2.jpg" class="img-fluid" alt="">
+                            <!-- <img src="img/testimonial-2.jpg" class="img-fluid" alt=""> -->
                             <div class="ms-4">
                                 <h4>Sunaina</h4>
                                 <p>Trainer</p>
@@ -1013,7 +1014,7 @@
                         <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                         </div>
                         <div class="testimonial-inner p-4">
-                            <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
+                            <!-- <img src="img/testimonial-3.jpg" class="img-fluid" alt=""> -->
                             <div class="ms-4">
                                 <h4>David</h4>
                                 <p>Professor</p>
@@ -1104,12 +1105,12 @@
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-start mb-md-0">
-                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>RenCar.com</a>, All right reserved.</span>
                     </div>
-                    <div class="col-md-6 text-center text-md-end text-body">
+                    <!-- <div class="col-md-6 text-center text-md-end text-body">
                        
                         Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -1132,6 +1133,26 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+
+    <script>
+        async function getData(){
+            console.log("inside getData");
+    
+            try {
+                const response = await fetch('http://localhost:5001/cars');
+                const data = await response.json();
+                console.log("data received", data);
+            } catch (error) {
+                console.log("error in getData", error.message);
+            }
+        };
+    
+        // Wait 5 seconds, then call getData
+        // setTimeout(getData, 500);
+    </script>
+
+
     </body>
 
 </html>

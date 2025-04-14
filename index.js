@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection URL (Replace with your actual database URL)
-const mongoURI = "mongodb+srv://ujjawalsingh7388:nBayv1SaCP5L4FXE@dheeraj.y4iijro.mongodb.net/CarRegistrationData"; 
+const mongoURI = "mongodb://localhost:27017/CarRentalDB";
 
 // Connect to MongoDB
 mongoose.connect(mongoURI)

@@ -31,16 +31,18 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
 
+
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-    </div>
+    </div> -->
     <!-- Spinner End -->
 
     <!-- Topbar Start -->
@@ -71,8 +73,8 @@
     <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a href="" class="navbar-brand p-0">
-                    <h1 class="display-6 text-primary"><i class="fas fa-car-alt me-3"></i></i>Cental</h1>
+                <a href="car-rent\index.html" class="navbar-brand p-0">
+                    <h1 class="display-6 text-primary"><i class="fas fa-car-alt me-3"></i></i>RenCar</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -80,7 +82,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="../car-rent/index.html" class="nav-item nav-link">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
                         <!-- <a href="blog.html" class="nav-item nav-link">Blog</a> -->
@@ -118,10 +120,10 @@
     <!-- Header End -->
 
     <!-- Car categories Start -->
-    <div class="container-fluid categories py-5">
+    <div class="container-fluid categories mt-5">
         <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                <h1 class="display-5 text-capitalize mb-3">Vehicle <span class="text-primary">Categories</span></h1>
+            <div class="text-center mx-auto pb-1 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                <h1 class="display-5 text-capitalize mb-3">Booking <span class="text-primary">Form</span></h1>
                 <p class="mb-0">Select one among below cars that best suits for You.
                 </p>
             </div>
@@ -133,6 +135,8 @@
         </div>
     </div>
     <!-- Car categories End -->
+
+    
 
     <!-- Car Steps Start -->
     <div class="container-fluid steps py-5">
@@ -196,7 +200,7 @@
                     <div class="footer-item d-flex flex-column">
                         <div class="footer-item">
                             <h4 class="text-white mb-4">About Us</h4>
-                            <p class="mb-3">Cental Car is committed to providing affordable services. we ensure a seamless travel experience for our customers.</p>
+                            <p class="mb-3">RenCar Car is committed to providing affordable services. we ensure a seamless travel experience for our customers.</p>
                         </div>
                         <div class="position-relative">
                             <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
@@ -272,73 +276,31 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+    
 
-    <!-- JavaScript Libraries -->
+    <!-- jQuery & Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/jquery/jquery.min.js"></script>
-    <script src="/js/waypoints/jquery.waypoints.min.js"></script>
-    <script src="/js/counterup/jquery.counterup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- <script src="/js/jquery/jquery.min.js"></script> -->
+    
 
+    <!-- Optional: jQuery Waypoints and CounterUp -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 
+    <!-- Other dependencies (like easing, owl carousel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-
-    <!-- Rental Modal -->
-    <div class="modal fade" id="rentalModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">RenCar <span id="modalCarModel"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="rentalForm">
-                        <input type="hidden" id="carId">
-                        <div class="mb-3">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="renterName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" id="renterEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="renterPhone" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Aadhaar Number</label>
-                            <input type="text" class="form-control" id="aadhaarNumber" 
-                                   pattern="\d{12}" 
-                                   title="12 digit Aadhaar number" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Driving License Number</label>
-                            <input type="text" class="form-control" id="dlNumber"
-                                   pattern="[A-Za-z]{2}\d{13}"
-                                   title="State code followed by 13 digits (e.g. UP1234567890123)" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="startDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" class="form-control" id="endDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Total Cost: ₹<span id="totalCost">0</span></label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Confirm Booking</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <script>
         $(document).ready(function() {
             // Show loading state for any button clicks
@@ -354,31 +316,17 @@
                 }
             });
 
-            // Initialize modal
-            const rentalModal = new bootstrap.Modal(document.getElementById('rentalModal'));
-            
-            // Handle rent button clicks with better feedback
+            // Handle rent button clicks - redirect to booking form
             $(document).on('click', '.rent-btn', function() {
                 const $btn = $(this);
                 $btn.prop('disabled', true)
                    .html('<span class="spinner-border spinner-border-sm me-2" role="status"></span>Loading...');
                 
+                // Small delay for better UX
                 setTimeout(() => {
-                    const carId = $btn.data('car-id');
-                    const carModel = $btn.data('car-model');
-                    const rentPerDay = $btn.data('rent-per-day');
-                    
-                    $('#carId').val(carId);
-                    $('#modalCarModel').text(carModel);
-                    $('#rentalForm')[0].reset();
-                    $('#totalCost').text('0');
-                    
-                    rentalModal.show();
                     $btn.prop('disabled', false).text('Rent Now');
-                }, 100); // Small delay for better UX
+                }, 100);
             });
-
-            // Calculate rental cost
             function calculateCost() {
                 const startDate = new Date($('#startDate').val());
                 const endDate = new Date($('#endDate').val());
@@ -395,6 +343,7 @@
 
             // Handle form submission
             $('#rentalForm').submit(async function(e) {
+                console.log("inside submit");
                 e.preventDefault();
                 
                 // Get form elements
@@ -403,6 +352,7 @@
                 
                 // Validate form data
                         const bookingData = {
+                            carId: $('#carId').val(), 
                             renterName: $('#renterName').val().trim(),
                             renterEmail: $('#renterEmail').val().trim(),
                             renterPhone: $('#renterPhone').val().trim(),
@@ -427,58 +377,47 @@
                 try {
                     // Show loading state
                     $submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status"></span> Processing...');
-
-                    const bookingUrl = `http://localhost:5001/bookings/${$('#carId').val()}`;
-                    console.log('Making booking request to:', bookingUrl);
                     
-                    const response = await fetch(bookingUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(bookingData),
-                        credentials: 'include'
-                    });
-
-                    console.log('Booking response:', {
-                        status: response.status,
-                        statusText: response.statusText,
-                        url: response.url
-                    });
-
-                    // Check if response has content before parsing JSON
-                    const text = await response.text();
-                    const result = text ? JSON.parse(text) : {};
-
-                    if (response.ok) {
-                        alert('Booking successful! We will contact you shortly.');
-                        rentalModal.hide();
-                    } else {
-                    let errorMsg = 'Booking failed. Please try again.';
-                    if (result.message) {
-                        errorMsg = result.message;
-                    } else if (response.status === 400) {
-                        errorMsg = 'Invalid booking data. Please check your information.';
-                    } else if (response.status === 404) {
-                        errorMsg = 'Car not available for selected dates.';
-                    } else if (response.status === 405) {
-                        errorMsg = 'Invalid request method. Please contact support.';
-                    } else if (response.status === 500) {
-                        errorMsg = 'Server error. Please try again later.';
+                    // Try server first, fallback to localStorage
+                    let bookingSuccess = false;
+                    
+                    // Option 1: Try actual server
+                    try {
+                        const bookingUrl = `http://localhost:5002/bookings/${$('#carId').val()}`;
+                        const response = await fetch(bookingUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(bookingData)
+                        });
+                        
+                        if (response.ok) {
+                            bookingSuccess = true;
+                            alert('Booking successful! We will contact you shortly.');
+                            rentalModal.hide();
+                            return;
+                        }
+                    } catch (e) {
+                        console.log('Server request failed, falling back to localStorage');
                     }
                     
-                    // Show error in modal instead of alert
-                    const errorDiv = $('<div class="alert alert-danger mt-3"></div>').text(`Error (${response.status}): ${errorMsg}`);
-                    $('#rentalForm').prepend(errorDiv);
-                    errorDiv.delay(5000).fadeOut();
-                    
-                    // Log full error details to console
-                    console.error('Booking failed:', {
-                        status: response.status,
-                        url: response.url,
-                        error: result.message || 'Unknown error'
-                    });
+                    // Option 2: Fallback to localStorage
+                    try {
+                        const bookings = JSON.parse(localStorage.getItem('carBookings') || '[]');
+                        bookings.push({
+                            ...bookingData,
+                            id: Date.now(),
+                            createdAt: new Date().toISOString()
+                        });
+                        localStorage.setItem('carBookings', JSON.stringify(bookings));
+                        bookingSuccess = true;
+                        alert('Booking saved locally! We will contact you when back online.');
+                        rentalModal.hide();
+                    } catch (e) {
+                        console.error('Local storage failed:', e);
+                        alert('Booking failed. Please try again later.');
                     }
                 } catch (error) {
                     console.error('Booking error:', error);
@@ -596,12 +535,10 @@
                                     </div>
                                     <h4>${car.carModel || 'Car Model'}</h4>
                                     <p class="mb-3">${car.transmission || 'Automatic'} | ${car.seats || '4'} seats | ${car.fuelType || 'Petrol'}</p>
-                                    <button class="btn btn-primary py-2 px-4 rent-btn" 
-                                        data-car-id="${car._id}" 
-                                        data-car-model="${car.carModel}" 
-                                        data-rent-per-day="${car.rentPerDay}">
-                                        Rent Now
-                                    </button>
+<a href="booking-form.html?carId=${car._id}&model=${encodeURIComponent(car.carModel)}&rent=${car.rentPerDay}" 
+   class="btn btn-primary py-2 px-4 rent-btn">
+    Rent Now
+</a>
                                 </div>
                             </div>
                         </div>`;
@@ -610,7 +547,7 @@
             }
 
             // Initial load when DOM is ready
-            loadCars();
+            // loadCars();
 
             // Category filter buttons would go here
             // Example: $('.category-filter').click(function() { loadCars($(this).data('category')); });

@@ -5,32 +5,28 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const PORT = 5001;
+const PORT = 5002;
 
 // Middleware
+// app.use(cors({
+// //   origin: '*', // Allow all localhost ports
+// //   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+// //   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
+
 app.use(cors({
-  origin: 'http://localhost', // Allow all localhost ports
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*'
 }));
+
 app.use(bodyParser.json());
 // Configure static file serving
-app.use(express.static(path.join(__dirname, 'car-rent'), {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript');
-    }
-  }
-}));
+app.use(express.static(path.join(__dirname, 'car-rent')));
+app.use(express.static(path.join(__dirname)));
 
 // Serve node_modules dependencies
 app.use('/js/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/js/waypoints', express.static(path.join(__dirname, 'node_modules/waypoints/lib')));
 app.use('/js/counterup', express.static(path.join(__dirname, 'node_modules/counterup2/dist')));
-
-// Serve local JS/CSS
-app.use('/js', express.static(path.join(__dirname, 'car-rent/js')));
-app.use('/css', express.static(path.join(__dirname, 'car-rent/css')));
 
 // Car Model
 const carSchema = new mongoose.Schema({
@@ -61,6 +57,7 @@ const bookingSchema = new mongoose.Schema({
     dlNumber: String,
     startDate: Date,
     endDate: Date,
+    request: String,
     totalCost: Number,
     status: { type: String, default: 'pending' },
     createdAt: { type: Date, default: Date.now }
@@ -73,6 +70,8 @@ app.get('/cars', async (req, res) => {
     try {
         const cars = await Car.find();
         res.json(cars);
+        console.log("cars data", cars)
+
     } catch (error) {
         res.status(500).json({ message: 'Error fetching cars' });
     }
@@ -89,7 +88,8 @@ app.post('/bookings/:carId', async (req, res) => {
             aadhaarNumber,
             dlNumber,
             startDate,
-            endDate
+            endDate,
+            request,
         } = req.body;
 
         // Validate input
@@ -128,6 +128,7 @@ app.post('/bookings/:carId', async (req, res) => {
             dlNumber,
             startDate,
             endDate,
+            request,
             totalCost
         });
 
@@ -155,6 +156,76 @@ app.post('/bookings/:carId', async (req, res) => {
                     body: req.body,
                     params: req.params
                 }
+            } : undefined
+        });
+    }
+});
+
+// Car Registration Endpoint
+app.post('/registerCar', async (req, res) => {
+    try {
+        const {
+            ownerName,
+            carModel,
+            carNumber,
+            registrationNumber,
+            pollutionNumber,
+            fitness,
+            rentPerDay,
+            location,
+            imageUrl,
+            category,
+            seats,
+            transmission,
+            fuelType
+        } = req.body;
+
+        // Validate required fields
+        if (!ownerName || !carModel || !carNumber || !registrationNumber || 
+            !rentPerDay || !location || !imageUrl || !category || !seats || 
+            !transmission || !fuelType) {
+            return res.status(400).json({ message: 'All required fields must be provided' });
+        }
+
+        // Create new car
+        const car = new Car({
+            ownerName,
+            carModel,
+            carNumber,
+            registrationNumber,
+            pollutionNumber,
+            fitness,
+            rentPerDay,
+            location,
+            imageUrl,
+            category,
+            seats,
+            transmission,
+            fuelType
+        });
+
+        await car.save();
+
+        res.status(201).json({
+            success: true,
+            message: 'Car registered successfully',
+            car
+        });
+
+    } catch (error) {
+        console.error('Registration error:', {
+            message: error.message,
+            stack: error.stack,
+            requestBody: req.body,
+            timestamp: new Date().toISOString()
+        });
+        
+        res.status(500).json({ 
+            message: 'Error registering car',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+            details: process.env.NODE_ENV === 'development' ? {
+                stack: error.stack,
+                requestData: req.body
             } : undefined
         });
     }

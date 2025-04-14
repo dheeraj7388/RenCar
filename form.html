@@ -9,7 +9,7 @@
     <input type="number" id="rentPerDay" placeholder="Rent per Day" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
     <input type="text" id="location" placeholder="Location" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
     <div style="margin: 10px 0;">
-        <input type="text" id="imageUrl" placeholder="Car Image URL (must start with http:// or https://)" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <input type="url" id="imageUrl" placeholder="Car Image URL (must start with http:// or https://)" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         <small id="urlHelp" style="display: none; color: red;">Please enter a valid URL starting with http:// or https://</small>
     </div>
     <select id="category" required style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
@@ -84,49 +84,112 @@ document.getElementById("carForm").addEventListener("submit", async function (e)
             alert("❌ Registration Failed: " + data.message);
         }
     } catch (error) {
-        alert("❌ Error: Unable to register car. Check server logs.");
-        console.error(error);
+        let errorMsg = "❌ Error: Unable to register car.";
+        if (error.message) {
+            errorMsg += `\n${error.message}`;
+        }
+        if (error.details) {
+            errorMsg += `\nDetails: ${JSON.stringify(error.details, null, 2)}`;
+        }
+        alert(errorMsg);
+        console.error("Registration error:", {
+            error: error,
+            requestData: carData,
+            timestamp: new Date().toISOString()
+        });
     }
 });
 
-// Function to fetch and display registered cars
+// Function to fetch and display registered cars by category
 async function loadCars() {
     try {
+        console.log("loading...")
         const response = await fetch("http://localhost:5002/cars");
         const cars = await response.json();
-
+        
         const carList = document.getElementById("carList");
         carList.innerHTML = "";
-        carList.style.display = "grid";
-        carList.style.gridTemplateColumns = "repeat(auto-fill, minmax(400px, 1fr))";
-        carList.style.gap = "20px";
         carList.style.padding = "20px";
-
+        
         if (cars.length === 0) {
             carList.innerHTML = "<p>No cars available for rent.</p>";
             return;
         }
+        
+        // Group cars by category
+        const carsByCategory = cars.reduce((acc, car) => {
+            if (!acc[car.category]) {
+                acc[car.category] = [];
+            }
+            acc[car.category].push(car);
+            return acc;
+        }, {});
+        console.log("loaded")
 
-        cars.forEach(car => {
+        // Display each category section
+        for (const [category, categoryCars] of Object.entries(carsByCategory)) {
             carList.innerHTML += `
-                <div style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 15px 0; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: grid; grid-template-columns: 1fr 2fr; gap: 15px; align-items: center;">
-                    <div>
-                        <img src="${car.imageUrl}" style="width: 100%; max-width: 200px; border-radius: 4px;" alt="Car Image">
-                    </div>
-                    <div>
-                        <h3 style="margin: 0 0 10px 0; color: #333;">${car.carModel} - ${car.ownerName}</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <p style="margin: 5px 0;"><strong>Number:</strong> ${car.carNumber}</p>
-                            <p style="margin: 5px 0;"><strong>Registration:</strong> ${car.registrationNumber}</p>
-                            <p style="margin: 5px 0;"><strong>Category:</strong> ${car.category}</p>
-                            <p style="margin: 5px 0;"><strong>Fitness:</strong> ${car.fitness}</p>
-                            <p style="margin: 5px 0;"><strong>Rent:</strong> ₹${car.rentPerDay}/day</p>
-                            <p style="margin: 5px 0;"><strong>Location:</strong> ${car.location}</p>
-                        </div>
+                <div class="category-section">
+                    <h2 class="category-title">${category} (${categoryCars.length})</h2>
+                    <div class="category-cars">
+                        ${categoryCars.map(car => `
+                        <div class="car-card">
+                                <div class="car-image">
+                                    <img src="${car?.imageUrl}" alt="${car?.carModel}" />
+                                </div>
+                                <div class="car-details">
+                                    <h3>${car.carModel} - ${car.ownerName}</h3>
+                                    <div class="car-specs">
+                                        <p><strong>Number:</strong> ${car.carNumber}</p>
+                                        <p><strong>Registration:</strong> ${car.registrationNumber}</p>
+                                        <p><strong>Fitness:</strong> ${car.fitness}</p>
+                                        <p><strong>Rent:</strong> ₹${car.rentPerDay}/day</p>
+                                        <p><strong>Location:</strong> ${car.location}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
             `;
-        });
+        }
+
+        // Add CSS for the new layout
+        const style = document.createElement('style');
+        style.textContent = `
+            .category-section {
+                margin-bottom: 30px;
+            }
+            .category-title {
+                color: #333;
+                border-bottom: 2px solid #28a745;
+                padding-bottom: 5px;
+                margin-bottom: 15px;
+            }
+            .category-cars {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+            }
+            .car-card {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 15px;
+                background: white;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .car-image img {
+                width: 100%;
+                max-height: 180px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            .car-details h3 {
+                margin: 10px 0;
+                color: #333;
+            }
+        }`;
+        document.head.appendChild(style);
     } catch (error) {
         console.error("Error fetching cars:", error);
     }
