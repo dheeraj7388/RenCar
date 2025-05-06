@@ -145,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-primary py-3 px-5" type="submit">Complete Booking</button>
+                                    <button  class="btn btn-primary py-3 px-5" type="submit">Complete Booking</button>
                                 </div>
                             </div>
                         </form>
@@ -167,6 +167,7 @@
     <script src="lib/easing/easing.min.js"></script>
 
     <!-- Booking Form JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         $(document).ready(function() {
             // Get URL parameters
@@ -281,6 +282,45 @@
 
                     const result = await response.json();
                     alert('Booking successful! We will contact shortly');
+
+                    // Generate PDF invoice after successful booking
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+
+                    doc.setFontSize(18);
+                    doc.text('Car Rental Invoice', 14, 22);
+
+                    doc.setFontSize(12);
+                    doc.text(`Renter Name: ${formData.renterName}`, 14, 40);
+                    doc.text(`Email: ${formData.renterEmail}`, 14, 50);
+                    doc.text(`Phone: ${formData.renterPhone}`, 14, 60);
+                    if (formData.aadhaarNumber) {
+                        doc.text(`Aadhaar Number: ${formData.aadhaarNumber}`, 14, 70);
+                    }
+                    doc.text(`Driving License Number: ${formData.dlNumber}`, 14, 80);
+                    doc.text(`Car Model: ${decodeURIComponent(carModel)}`, 14, 90);
+                    doc.text(`Rental Price per Day: ₹${rentPerDay}`, 14, 100);
+                    doc.text(`Start Date: ${formData.startDate}`, 14, 110);
+                    doc.text(`End Date: ${formData.endDate}`, 14, 120);
+
+                    // Calculate total days and cost
+                    const startDateObj = new Date(formData.startDate);
+                    const endDateObj = new Date(formData.endDate);
+                    const days = Math.ceil((endDateObj - startDateObj) / (1000 * 60 * 60 * 24)) + 1;
+                    const totalCost = days * rentPerDay;
+                    doc.text(`Total Days: ${days}`, 14, 130);
+                    doc.text(`Total Cost: ₹${totalCost}`, 14, 140);
+
+                    if (formData.request) {
+                        doc.text('Special Requests:', 14, 150);
+                        doc.text(formData.request, 14, 160);
+                    }
+
+                    doc.text('Thank you for booking with RenCar!', 14, 180);
+
+                    // Save the PDF and trigger download
+                    doc.save(`Invoice_${formData.renterName.replace(/\s+/g, '_')}.pdf`);
+
                     // Optionally redirect to confirmation page
                     // window.location.href = 'booking-confirmation.html?id=' + result.booking._id;
                 } catch (error) {

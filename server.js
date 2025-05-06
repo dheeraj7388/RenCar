@@ -3,6 +3,7 @@ const mongoose = require('./index');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const { type } = require('os');
 
 const app = express();
 const PORT = 5002;
@@ -65,6 +66,17 @@ const bookingSchema = new mongoose.Schema({
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
+//  user schema
+const userSchema = new mongoose.Schema({
+    email:{
+        type : String
+    },
+    password:{
+        type:String
+    }
+})
+
+const User = mongoose.model('User',userSchema)
 // Cars Endpoint
 app.get('/cars', async (req, res) => {
     try {
@@ -77,7 +89,57 @@ app.get('/cars', async (req, res) => {
     }
 });
 
+// user login
+
+// app.post('/login', async (req,res) =>{
+//    try {
+//      const {email, password} = req.body;
+ 
+//      if(!username || !password){
+//          return res.status(400).json({
+//              message:"username or password are required",
+//          })
+//      }
+ 
+//       const existingUser = await User.findOne({email})
+ 
+//       if(!existingUser){
+//          return res.status(400).json({
+//              message:"user not found",
+//          })
+//       }
+ 
+//       return res.status(200).json({
+//          message:"login sucessfully"
+//       })
+//    } catch (error) {
+//     return res.status(400).json({
+//         message:"server error"
+//     })
+//    }
+// })
+
 // Booking Endpoint
+// app.get("/get-booking",async (req,res) =>{
+//     const getBooking = await Booking.findMany({})
+//     return res.status(200).json({
+//         data:getBooking,
+//         message:"successfully fetech data"
+//     })
+// })
+
+// app.get("/get-cars/:id", async (req, res) =>{
+//     const {id} = req.params
+
+//     const getDetails = await Car.findOne({id})
+
+//     return res.status(200).json({
+//         data: getDetails
+//     })
+
+// })
+
+
 app.post('/bookings/:carId', async (req, res) => {
     try {
         const { carId } = req.params;
@@ -229,6 +291,73 @@ app.post('/registerCar', async (req, res) => {
             } : undefined
         });
     }
+});
+
+
+app.get('/get-booking',async(req, res)=>{
+    try {
+        const bookingData = await Booking.find({})
+        console.log("bookingData",bookingData)
+    
+        res.status(200).json({
+            data:bookingData
+        })
+    } catch (error) {
+        return res.status(500).json({
+            error:error.message,
+            message:"something went wrong in get booking"
+        })
+    }
+})
+
+
+
+app.get('/register-data',async (req, res)=>{
+    try {
+        const registerCar = await Car.find({})
+        console.log("bookingData",registerCar)
+    
+        res.status(200).json({
+            data:registerCar
+        })
+    } catch (error) {
+        return res.status(500).json({
+            error:error.message,
+            message:"something went wrong in get booking"
+        })
+    }
+})
+
+
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  // Basic validation
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Compare passwords (plaintext in this case, use bcrypt in real apps)
+    if (user.password !== password) {
+      return res.status(400).json({ message: 'Password does not match' });
+    }
+
+    // Success
+    res.status(200).json({ message: 'Login successful', user: { email: user.email } });
+
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 // Start server

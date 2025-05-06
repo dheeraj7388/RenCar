@@ -18,7 +18,7 @@ document.getElementById("carRegisterForm").addEventListener("submit", async func
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(carData)
     });
-
+  
     if (response.ok) {
         alert("Car Registered Successfully!");
     } else {

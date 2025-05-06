@@ -27,6 +27,11 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+        
     </head>
 
     <body>
@@ -92,6 +97,7 @@
                                 </div>
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="../dist/pages/login.html" class="nav-item nav-link">Admin</a>
                         </div>
                         <!-- register -->
                         <a href="form.html" class="btn btn-primary rounded-pill py-2 px-4">Register Your Car</a>
@@ -115,80 +121,30 @@
                             <div class="container py-4">
                                 <div class="row g-5">
                                     <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
-                                        <div class="bg-secondary rounded p-5">
-                                            <h4 class="text-white mb-4">Hire A Car </h4>
-                                            <form>
-                                                <div class="row g-3">
-                                                    <!-- <div class="col-12">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>Select Your Car type</option>
-                                                            <option value="1">VW Golf VII</option>
-                                                            <option value="2">Audi A1 S-Line</option>
-                                                            <option value="3">Toyota Camry</option>
-                                                            <option value="4">BMW 320 ModernLine</option>
-                                                        </select>
-                                                    </div> -->
-                                                    <div class="col-12">
-                                                        <div class="input-group">
-                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
-                                                                <span class="fas fa-map-marker-alt"></span> <span class="ms-1">Pick Up</span>
-                                                            </div>
-                                                            <input class="form-control" type="text" placeholder="Enter a City" aria-label="Enter a City">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <a href="#" class="text-start text-white d-block mb-2">Need a different drop-off location?</a>
-                                                        <div class="input-group">
-                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
-                                                                <span class="fas fa-map-marker-alt"></span><span class="ms-1">Drop off</span>
-                                                            </div>
-                                                            <input class="form-control" type="text" placeholder="Enter a City" aria-label="Enter a City">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="input-group">
-                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
-                                                                <span class="fas fa-calendar-alt"></span><span class="ms-1">Pick Up</span>
-                                                            </div>
-                                                            <input class="form-control" type="date">
-                                                            <select class="form-select ms-3" aria-label="Default select example">
-                                                                <option selected>12:00AM</option>
-                                                                <option value="1">1:00AM</option>
-                                                                <option value="2">2:00AM</option>
-                                                                <option value="3">3:00AM</option>
-                                                                <option value="4">4:00AM</option>
-                                                                <option value="5">5:00AM</option>
-                                                                <option value="6">6:00AM</option>
-                                                                <option value="7">7:00AM</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="input-group">
-                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
-                                                                <span class="fas fa-calendar-alt"></span><span class="ms-1">Drop off</span>
-                                                            </div>
-                                                            <input class="form-control" type="date">
-                                                            <select class="form-select ms-3" aria-label="Default select example">
-                                                                <option selected>12:00AM</option>
-                                                                <option value="1">1:00AM</option>
-                                                                <option value="2">2:00AM</option>
-                                                                <option value="3">3:00AM</option>
-                                                                <option value="4">4:00AM</option>
-                                                                <option value="5">5:00AM</option>
-                                                                <option value="6">6:00AM</option>
-                                                                <option value="7">7:00AM</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                        <div class=" rounded p-5">
+                                            <img class="img-fluid w-100" src="img/car81.gif" alt="Car Image" style="max-width: 500px; height: auto;">
+
+                                            
+                                            
+                                                
+                                                    
+                                                    
+                                                   
+                                                    
                                                     <div class="col-12"
                                                     onclick="getData()">
-                                                        <a href="/cars.html" class="btn btn-light w-100 py-2">Book Now</a>
+                                                    <a href="cars.html" class="btn btn-light w-100 py-2 fw-bold animate__animated animate__pulse" id="bookNowBtn">Book Now</a>
+
                                                     </div>
-                                                </div>
-                                            </form>
+                                                
+                                           
                                         </div>
                                     </div>
+
+                                    
+                                    
+
+
                                     <div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
                                         <div class="text-start">
                                             <h1 class="display-5 text-white">Save the Planet & Your Wallet – Get Discounts on Electric Car Rentals!</h1>
@@ -1135,12 +1091,12 @@
     <script src="js/main.js"></script>
 
 
-    <script>
+        <script>
         async function getData(){
             console.log("inside getData");
     
             try {
-                const response = await fetch('http://localhost:5001/cars');
+                const response = await fetch('http://localhost:5002/cars');
                 const data = await response.json();
                 console.log("data received", data);
             } catch (error) {
@@ -1151,6 +1107,17 @@
         // Wait 5 seconds, then call getData
         // setTimeout(getData, 500);
     </script>
+
+    <!-- //button animation -->
+    <script>
+        const btn = document.getElementById('bookNowBtn');
+      
+        btn.addEventListener('mouseenter', () => {
+          btn.classList.remove('animate__pulse'); // reset
+          void btn.offsetWidth; // reflow to restart animation
+          btn.classList.add('animate__pulse');
+        });
+      </script>
 
 
     </body>
