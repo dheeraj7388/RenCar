@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        th, td {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f4f8;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-booked {
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+     <div class="section">
+        <h2>Booking Records</h2>
+        <table id="bookingTable">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>dlNumber</th>
+                    <th>Booking Date</th>
+                    <th>Return Date</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Bookings inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch Booking Data
+        async function fetchBookings() {
+            try {
+                const res = await fetch('http://localhost:5002/get-booking');
+                const bookings = await res.json();
+                console.log("booking html",bookings.data)
+                const bookingBody = document.querySelector('#bookingTable tbody');
+                bookingBody.innerHTML = '';
+
+                bookings.data.forEach(booking => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${booking.renterName}</td>
+                        <td>${booking.dlNumber}</td>
+                        <td>${new Date(booking.startDate).toLocaleDateString()}</td>
+                        <td>${new Date(booking.endDate).toLocaleDateString()}</td>
+                        <td>₹${booking.totalCost}</td>
+                    `;
+                    bookingBody.appendChild(row);
+                });
+            } catch (err) {
+                console.error('Error loading booking data:', err);
+            }
+        }
+
+        fetchBookings();
+    </script>
+</body>
+</html>

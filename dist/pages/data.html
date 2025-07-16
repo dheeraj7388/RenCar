@@ -56,6 +56,28 @@
             font-weight: bold;
         }
 
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .dashboard-button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-button:hover {
+            background-color: #2c80b4;
+        }
+
         @media (max-width: 600px) {
             th, td {
                 font-size: 0.9rem;
@@ -65,6 +87,11 @@
             h1, h2 {
                 font-size: 1.5rem;
             }
+
+            .dashboard-button {
+                width: 80%;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -72,98 +99,10 @@
 
     <h1>Admin Panel</h1>
 
-    <div class="section">
-        <h2>All Registered Cars</h2>
-        <table id="carTable">
-            <thead>
-                <tr>
-                    <th>Car Name</th>
-                    <th>Model</th>
-                    <th>category</th>
-                    <th>Price per Day</th>
-                    <th>location</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Registered cars inserted here -->
-            </tbody>
-        </table>
+    <div class="button-container">
+        <a href="./registeredData.html" class="dashboard-button">Registered Data</a>
+        <a href="./bookingData.html" class="dashboard-button">Booking Data</a>
     </div>
-
-    <div class="section">
-        <h2>Booking Records</h2>
-        <table id="bookingTable">
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>dlNumber</th>
-                    <th>Booking Date</th>
-                    <th>Return Date</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Bookings inserted here -->
-            </tbody>
-        </table>
-    </div>
-
-    <script>
-        // Fetch Registered Cars
-        async function fetchCars() {
-            try {
-                const res = await fetch(`http://localhost:5002/register-data`);
-                const cars = await res.json();
-                console.log("cars",cars)
-                const carBody = document.querySelector('#carTable tbody');
-                carBody.innerHTML = '';
-
-                cars.data.forEach(car => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${car.ownerName}</td>
-                        <td>${car.carModel}</td>
-                        <td>${car.category}</td>
-                        <td>${car.rentPerDay}</td>
-                        <td class="${car.status ? 'status-available' : 'status-booked'}">
-                            ${car.location }
-                        </td>
-                    `;
-                    carBody.appendChild(row);
-                });
-            } catch (err) {
-                console.error('Error loading car data:', err);
-            }
-        }
-
-        // Fetch Booking Data
-        async function fetchBookings() {
-            try {
-                const res = await fetch('http://localhost:5002/get-booking');
-                const bookings = await res.json();
-                console.log("booking html",bookings.data)
-                const bookingBody = document.querySelector('#bookingTable tbody');
-                bookingBody.innerHTML = '';
-
-                bookings.data.forEach(booking => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${booking.renterName}</td>
-                        <td>${booking.dlNumber}</td>
-                        <td>${new Date(booking.startDate).toLocaleDateString()}</td>
-                        <td>${new Date(booking.endDate).toLocaleDateString()}</td>
-                        <td>₹${booking.totalCost}</td>
-                    `;
-                    bookingBody.appendChild(row);
-                });
-            } catch (err) {
-                console.error('Error loading booking data:', err);
-            }
-        }
-
-        fetchCars();
-        fetchBookings();
-    </script>
 
 </body>
 </html>

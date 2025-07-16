@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f9;
+            padding: 30px;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        th, td {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f4f8;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-booked {
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>All Registered Cars</h2>
+        <table id="carTable">
+            <thead>
+                <tr>
+                    <th>Car Name</th>
+                    <th>Model</th>
+                    <th>category</th>
+                    <th>Price per Day</th>
+                    <th>location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Registered cars inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch Registered Cars
+        async function fetchCars() {
+            try {
+                const res = await fetch(`http://localhost:5002/register-data`);
+                const cars = await res.json();
+                console.log("cars",cars)
+                const carBody = document.querySelector('#carTable tbody');
+                carBody.innerHTML = '';
+
+                cars.data.forEach(car => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${car.ownerName}</td>
+                        <td>${car.carModel}</td>
+                        <td>${car.category}</td>
+                        <td>${car.rentPerDay}</td>
+                        <td class="${car.status ? 'status-available' : 'status-booked'}">
+                            ${car.location }
+                        </td>
+                    `;
+                    carBody.appendChild(row);
+                });
+            } catch (err) {
+                console.error('Error loading car data:', err);
+            }
+        }
+
+        fetchCars()
+    </script>
+</body>
+</html>

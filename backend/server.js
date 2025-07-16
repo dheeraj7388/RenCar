@@ -8,12 +8,7 @@ const { type } = require('os');
 const app = express();
 const PORT = 5002;
 
-// Middleware
-// app.use(cors({
-// //   origin: '*', // Allow all localhost ports
-// //   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-// //   allowedHeaders: ['Content-Type', 'Authorization']
-// }));
+
 
 app.use(cors({
   origin: '*'
@@ -89,55 +84,7 @@ app.get('/cars', async (req, res) => {
     }
 });
 
-// user login
 
-// app.post('/login', async (req,res) =>{
-//    try {
-//      const {email, password} = req.body;
- 
-//      if(!username || !password){
-//          return res.status(400).json({
-//              message:"username or password are required",
-//          })
-//      }
- 
-//       const existingUser = await User.findOne({email})
- 
-//       if(!existingUser){
-//          return res.status(400).json({
-//              message:"user not found",
-//          })
-//       }
- 
-//       return res.status(200).json({
-//          message:"login sucessfully"
-//       })
-//    } catch (error) {
-//     return res.status(400).json({
-//         message:"server error"
-//     })
-//    }
-// })
-
-// Booking Endpoint
-// app.get("/get-booking",async (req,res) =>{
-//     const getBooking = await Booking.findMany({})
-//     return res.status(200).json({
-//         data:getBooking,
-//         message:"successfully fetech data"
-//     })
-// })
-
-// app.get("/get-cars/:id", async (req, res) =>{
-//     const {id} = req.params
-
-//     const getDetails = await Car.findOne({id})
-
-//     return res.status(200).json({
-//         data: getDetails
-//     })
-
-// })
 
 
 app.post('/bookings/:carId', async (req, res) => {
