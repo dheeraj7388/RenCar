@@ -13,7 +13,7 @@ document.getElementById("carRegisterForm").addEventListener("submit", async func
         contactInfo: document.getElementById("contactInfo").value
     };
 
-    const response = await fetch("http://localhost:3000/cars/register", {
+    const response = await fetch("https://ren-car-k1ze.vercel.app/cars/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(carData)
