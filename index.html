@@ -1096,7 +1096,7 @@
             console.log("inside getData");
     
             try {
-                const response = await fetch('http://localhost:5002/cars');
+                const response = await fetch('https://ren-car-k1ze.vercel.app/cars');
                 const data = await response.json();
                 console.log("data received", data);
             } catch (error) {

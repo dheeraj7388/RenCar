@@ -267,7 +267,7 @@
                     }
 
                     const carId = $('#carId').val();
-                    const response = await fetch(`http://localhost:5002/bookings/${carId}`, {
+                    const response = await fetch(`https://ren-car-k1ze.vercel.app/bookings/${carId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

@@ -92,7 +92,7 @@
         // Fetch Booking Data
         async function fetchBookings() {
             try {
-                const res = await fetch('http://localhost:5002/get-booking');
+                const res = await fetch('https://ren-car-k1ze.vercel.app/get-booking');
                 const bookings = await res.json();
                 console.log("booking html",bookings.data)
                 const bookingBody = document.querySelector('#bookingTable tbody');

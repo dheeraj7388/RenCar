@@ -92,7 +92,7 @@
         // Fetch Registered Cars
         async function fetchCars() {
             try {
-                const res = await fetch(`http://localhost:5002/register-data`);
+                const res = await fetch(`https://ren-car-k1ze.vercel.app/register-data`);
                 const cars = await res.json();
                 console.log("cars",cars)
                 const carBody = document.querySelector('#carTable tbody');
