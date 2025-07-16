@@ -10,9 +10,13 @@ const PORT = 5002;
 
 
 
+// CORS setup — allow all origins (or specify your frontend origin)
 app.use(cors({
-  origin: '*'
+  origin: '*' // OR use 'https://ren-car-tawny.vercel.app'
 }));
+
+// Preflight support for all routes
+app.options('*', cors());
 
 app.use(bodyParser.json());
 // Configure static file serving
