@@ -139,7 +139,7 @@
                 });
 
                 document.addEventListener('DOMContentLoaded', function () {
-                    fetch('https://ren-car-k1ze.vercel.app/cars')
+                    fetch('https://rencar-1.onrender.com/cars')
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
@@ -540,7 +540,7 @@
 
                 // Try server first
                 try {
-                    const response = await fetch(`https://ren-car-k1ze.vercel.app/bookings/${formData.carId}`, {
+                    const response = await fetch(`https://rencar-1.onrender.com/bookings/${formData.carId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

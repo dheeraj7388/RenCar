@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection URL (Replace with your actual database URL)
-const mongoURI = "mongodb://https://ren-car-k1ze.vercel.app/CarRentalDB";
+const mongoURI = "mongodb://https://rencar-1.onrender.com/CarRentalDB";
 
 // Connect to MongoDB
 mongoose.connect(mongoURI)
